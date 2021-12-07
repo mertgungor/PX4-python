@@ -115,7 +115,7 @@ if __name__ == "__main__":
                 print("ready")
                 break
 
-        land()            
+        draw_square(5)            
 
 
     except rospy.exceptions.ROSInterruptException:
