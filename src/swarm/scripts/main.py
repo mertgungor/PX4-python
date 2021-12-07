@@ -5,6 +5,7 @@ from mavros_msgs.msg import *
 from mavros_msgs.srv import *
 from Agent import Agent 
 from Iris import Iris 
+from swarm.srv import PoseCommand
 
 pose = PoseStamped()
 pose.pose.position.x = 5
