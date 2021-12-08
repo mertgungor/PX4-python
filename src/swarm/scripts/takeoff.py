@@ -29,7 +29,7 @@ def state_callback(data):
     return
 
 def state_listener():
-    rospy.Subscriber("/uav0/mavros/state", State, state_callback)
+    rospy.Subscriber("/mavros/state", State, state_callback)
     rate = rospy.Rate(100)
     rate.sleep()
 
@@ -40,15 +40,15 @@ if __name__ == '__main__':
     rospy.init_node('takeoff', anonymous=True)
     rate = rospy.Rate(10)
 
-    rospy.wait_for_service("/uav0/mavros/cmd/arming")
-    arming_client = rospy.ServiceProxy("/uav0/mavros/cmd/arming", CommandBool)
+    rospy.wait_for_service("/mavros/cmd/arming")
+    arming_client = rospy.ServiceProxy("/mavros/cmd/arming", CommandBool)
 
-    rospy.wait_for_service("/uav0/mavros/set_mode") 
-    set_mode_client = rospy.ServiceProxy("/uav0/mavros/set_mode", SetMode)
+    rospy.wait_for_service("/mavros/set_mode") 
+    set_mode_client = rospy.ServiceProxy("/mavros/set_mode", SetMode)
 
     command_service = rospy.Service("PoseCommand", PoseCommand, position_command)
 
-    pose_pub = rospy.Publisher("/uav0/mavros/setpoint_position/local", PoseStamped, queue_size=10)
+    pose_pub = rospy.Publisher("/mavros/setpoint_position/local", PoseStamped, queue_size=10)
     pose_pub.publish(pose)
 
     set_mode = SetMode()
