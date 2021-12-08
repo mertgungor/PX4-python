@@ -48,19 +48,19 @@ def current_odometry_pose_callback(data):
     
     
 def current_odometry_pose():
-    odometry_sub = rospy.Subscriber("/uav0/mavros/global_position/local", Odometry, current_odometry_pose_callback)
+    odometry_sub = rospy.Subscriber("/mavros/global_position/local", Odometry, current_odometry_pose_callback)
 
 def current_gps_pose():
-    pose_sub = rospy.Subscriber("/uav0/mavros/global_position/global", NavSatFix, current_gps_pose_callback)
+    pose_sub = rospy.Subscriber("/mavros/global_position/global", NavSatFix, current_gps_pose_callback)
 
 def land(): # doesn't work !!!!!!!!!!!! 
     try:
 
         pose_commander(odomery_pose.pose.pose.position.x, odomery_pose.pose.pose.position.y, 0)
 
-        rospy.wait_for_service("/uav0/mavros/cmd/land")
+        rospy.wait_for_service("/mavros/cmd/land")
 
-        land_service = rospy.ServiceProxy("/uav0/mavros/cmd/land", CommandTOL)
+        land_service = rospy.ServiceProxy("/mavros/cmd/land", CommandTOL)
         land_service(min_pitch=0, yaw=0, latitude=0, longitude=0, altitude=0)
 
         print("land service called")
